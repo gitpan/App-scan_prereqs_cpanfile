@@ -2,7 +2,7 @@ package App::scan_prereqs_cpanfile;
 use strict;
 use warnings;
 use 5.008005;
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 
 
@@ -11,15 +11,11 @@ __END__
 
 =head1 NAME
 
-App::scan_prereqs_cpanfile - It's new $module
-
-=head1 SYNOPSIS
-
-    use App::scan_prereqs_cpanfile;
+App::scan_prereqs_cpanfile - Scan prerequisite modules and generate CPANfile
 
 =head1 DESCRIPTION
 
-App::scan_prereqs_cpanfile is ...
+Please look L<scan-prereqs-cpanfile>.
 
 =head1 LICENSE
 

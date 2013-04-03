@@ -16,16 +16,19 @@ use File::Spec;
 use File::Basename ();
 use Module::Metadata;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 my $version;
 my $diff;
+my $include_empty;
+my @ignore = qw(eg examples share);
 my $p = Getopt::Long::Parser->new(
     config => [qw(posix_default no_ignore_case auto_help)]
 );
 $p->getoptions(
     'version!'       => \$version,
     'diff=s' => \$diff,
+    'include-empty!' => \$include_empty,
 );
 if ($version) {
     printf "%s %s\n", File::Basename::basename($0), $VERSION;
@@ -43,9 +46,9 @@ sub debugf {
 &main; exit;
 
 sub main {
-    my ($runtime_files, $test_files, $configure_files) = find_perl_files();
+    my ($runtime_files, $test_files, $configure_files, $develop_files) = find_perl_files();
 
-    my @inner_packages = scan_inner_packages(@$test_files, @$runtime_files, @$configure_files);
+    my @inner_packages = scan_inner_packages(@$test_files, @$runtime_files, @$configure_files, @$develop_files);
     my $meta_prereqs = $diff ? load_diff_src($diff) : +{};
 
     # runtime
@@ -56,6 +59,9 @@ sub main {
 
     # configure
     my $configure_prereqs = scan($configure_files, \@inner_packages, $meta_prereqs, [qw(configure runtime)], 'configure', $runtime_prereqs);
+
+    # develop
+    my $develop_prereqs = scan($develop_files, \@inner_packages, $meta_prereqs, [qw(develop runtime)], 'develop', +{ %{$runtime_prereqs||{}}, %{$test_prereqs||{}}});
 
     print Module::CPANfile->from_prereqs(
         {
@@ -68,8 +74,11 @@ sub main {
             test => {
                 requires => $test_prereqs,
             },
+            develop => {
+                requires => $develop_prereqs,
+            },
         }
-    )->to_string();
+    )->to_string($include_empty);
 }
 
 sub scan {
@@ -172,7 +181,7 @@ sub read_first_line {
 }
 
 sub find_perl_files {
-    my (@runtime_files, @test_files, @configure_files);
+    my (@runtime_files, @test_files, @configure_files, @develop_files);
     find(
         {
             no_chdir => 1,
@@ -187,11 +196,19 @@ sub find_perl_files {
                 return if $topdir eq 'blib';
                 return if $basename eq 'Build';
 
+                for (@ignore) {
+                    next if $topdir eq $_;
+                }
+
                 if ($basename eq 'Build.PL' || $basename eq 'Makefile.PL') {
                     push @configure_files, $_
-                } elsif ($topdir eq 'xt' || $topdir eq 't') {
+                } elsif ($topdir eq 't') {
                     if (/\.(pl|pm|psgi|t)$/) {
                         push @test_files, $_
+                    }
+                } elsif ($topdir eq 'xt' || $topdir eq 'author') {
+                    if (/\.(pl|pm|psgi|t)$/) {
+                        push @develop_files, $_
                     }
                 } else {
                     if (/\.(pl|pm|psgi)$/) {
@@ -207,6 +224,70 @@ sub find_perl_files {
         },
         '.'
     );
-    return (\@runtime_files, \@test_files, \@configure_files);
+    return (\@runtime_files, \@test_files, \@configure_files, \@develop_files);
 }
+
+__END__
+
+=head1 NAME
+
+scan-prereqs-cpanfile - Scan prerequisite modules and generate CPANfile
+
+=head1 SYNOPSIS
+
+    % scan-prereqs-cpanfile
+
+        --diff=META.json      # Generate diff from META.json
+        --diff=cpanfile       # Generate diff from cpanfile
+
+=head1 DESCRIPTION
+
+This script scans prerequisite modules from your code, and generate CPANfile.
+You can also list missing prerequisite modules.
+
+=head1 SCANNING RULES
+
+=over 4
+
+=item Used modules in `Build.PL` or `Makefile.PL` as 'test' requires
+
+=item Used modules in `t/` as 'test' requires
+
+=item Used modules in `xt/` and `author/` as 'develop' requires
+
+=item Used modules in other directories as 'runtime' requires
+
+=back
+
+=head1 OPTIONS
+
+=over 4
+
+=item --diff
+
+        --diff=META.json      # Generate diff from META.json
+        --diff=cpanfile       # Generate diff from cpanfile
+
+Compare the scanning result with META.json, META.yml or cpanfile.
+With this option, scan-prereqs-cpanfile displays missing prerequisite modules only.
+
+=item --include-empty
+
+By default, phases without any prereqs are not dumped, By giving this option, cpanfile will have an empty block such as:
+
+    on test => sub {
+    
+    };
+
+Defaults to false.
+
+=back
+
+=head1 AUTHOR
+
+Tokuhiro Matsuno
+
+=head1 SEE ALSO
+
+L<Module::CPANfile>, L<Perl::PrereqScanner>
 

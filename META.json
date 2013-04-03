@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Scan prerequisite modules and generate CPANfile",
    "author" : [
       "tokuhirom <tokuhirom@gmail.com>"
    ],
@@ -60,7 +60,7 @@
    "provides" : {
       "App::scan_prereqs_cpanfile" : {
          "file" : "lib/App/scan_prereqs_cpanfile.pm",
-         "version" : "0.01"
+         "version" : "0.02"
       }
    },
    "release_status" : "stable",
@@ -74,5 +74,5 @@
          "web" : "https://github.com/tokuhirom/App-scan_prereqs_cpanfile"
       }
    },
-   "version" : "0.01"
+   "version" : "0.02"
 }
