@@ -1,0 +1,16 @@
+.gitignore
+.travis.yml
+Build.PL
+Changes
+LICENSE
+META.json
+README.md
+cpanfile
+lib/App/scan_prereqs_cpanfile.pm
+script/scan-prereqs-cpanfile
+t/00_compile.t
+Build.PL
+LICENSE
+META.json
+META.yml
+MANIFEST

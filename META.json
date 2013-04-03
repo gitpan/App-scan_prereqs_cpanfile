@@ -1,0 +1,78 @@
+{
+   "abstract" : "It's new $module",
+   "author" : [
+      "tokuhirom <tokuhirom@gmail.com>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Minilla/v0.0.49",
+   "license" : "perl_5",
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "App-scan_prereqs_cpanfile",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "inc",
+         "share",
+         "eg",
+         "examples"
+      ]
+   },
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "CPAN::Meta" : "0",
+            "CPAN::Meta::Prereqs" : "0",
+            "Module::Build" : "0.38"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Pod::Wordlist::hanekomu" : "0",
+            "Test::CPAN::Meta" : "0",
+            "Test::MinimumVersion" : "0.10108",
+            "Test::Pod" : "1.41",
+            "Test::Spelling" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "CPAN::Meta" : "0",
+            "CPAN::Meta::Requirements" : "0",
+            "Getopt::Long" : "0",
+            "Module::CPANfile" : "0",
+            "Module::CoreList" : "0",
+            "Module::Metadata" : "0",
+            "Perl::PrereqScanner" : "0",
+            "perl" : "5.008005",
+            "version" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0.98"
+         }
+      }
+   },
+   "provides" : {
+      "App::scan_prereqs_cpanfile" : {
+         "file" : "lib/App/scan_prereqs_cpanfile.pm",
+         "version" : "0.01"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/tokuhirom/App-scan_prereqs_cpanfile/issues"
+      },
+      "homepage" : "https://github.com/tokuhirom/App-scan_prereqs_cpanfile",
+      "repository" : {
+         "url" : "git://github.com/tokuhirom/App-scan_prereqs_cpanfile.git",
+         "web" : "https://github.com/tokuhirom/App-scan_prereqs_cpanfile"
+      }
+   },
+   "version" : "0.01"
+}
