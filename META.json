@@ -60,7 +60,7 @@
    "provides" : {
       "App::scan_prereqs_cpanfile" : {
          "file" : "lib/App/scan_prereqs_cpanfile.pm",
-         "version" : "0.03"
+         "version" : "0.04"
       }
    },
    "release_status" : "stable",
@@ -74,7 +74,7 @@
          "web" : "https://github.com/tokuhirom/App-scan_prereqs_cpanfile"
       }
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_contributors" : [
       "Syohei YOSHIDA <syohex@gmail.com>"
    ]
