@@ -16,7 +16,19 @@ use File::Spec;
 use File::Basename ();
 use Module::Metadata;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
+
+sub debugf {
+    if ($ENV{SCAN_PREREQS_CPANFILE_DEBUG}) {
+	require Data::Dumper;
+	my $format = shift;
+	no warnings 'once';
+	local $Data::Dumper::Terse  = 1;
+	local $Data::Dumper::Indent = 0;
+	my $txt = sprintf($format, map { defined($_) ? Data::Dumper::Dumper($_) : '-' } @_);
+	print $txt, "\n";
+    }
+}
 
 my $version;
 my $diff;
@@ -35,18 +47,11 @@ if ($version) {
     exit 0;
 }
 
-sub debugf {
-    if ($ENV{DEBUG}) {
-        my $format = shift;
-        my $txt = sprintf($format, @_);
-        print "$txt\n"
-    }
-}
-
 &main; exit;
 
 sub main {
     my ($runtime_files, $test_files, $configure_files, $develop_files) = find_perl_files();
+    debugf($develop_files);
 
     my @inner_packages = scan_inner_packages(@$test_files, @$runtime_files, @$configure_files, @$develop_files);
     my $meta_prereqs = $diff ? load_diff_src($diff) : +{};
@@ -92,6 +97,7 @@ sub scan {
     # Remove from meta
     for my $type (@$prereq_types) {
         remove_prereqs($prereqs, $meta_prereqs->{$type}->{requires});
+        remove_prereqs($prereqs, $meta_prereqs->{$type}->{recommends});
     }
 
     # Runtime prereqs.
@@ -142,6 +148,7 @@ sub blead_corelist {
 
 sub remove_prereqs {
     my ($prereqs, $allowed) = @_;
+    return unless $allowed;
 
     for my $module (keys %$allowed) {
         if (exists $allowed->{$module}) {
@@ -196,6 +203,9 @@ sub find_perl_files {
                 return if $topdir eq 'blib';
                 return if $basename eq 'Build';
 
+		# Ignore build dir like Dist-Name-0.01/.
+		return if -f "$topdir/META.json";
+
                 for (@ignore) {
                     next if $topdir eq $_;
                 }
@@ -206,7 +216,7 @@ sub find_perl_files {
                     if (/\.(pl|pm|psgi|t)$/) {
                         push @test_files, $_
                     }
-                } elsif ($topdir eq 'xt' || $topdir eq 'author') {
+                } elsif ($topdir eq 'xt' || $topdir eq 'author' || $topdir eq 'benchmark') {
                     if (/\.(pl|pm|psgi|t)$/) {
                         push @develop_files, $_
                     }
@@ -253,7 +263,7 @@ You can also list missing prerequisite modules.
 
 =item Used modules in `t/` as 'test' requires
 
-=item Used modules in `xt/` and `author/` as 'develop' requires
+=item Used modules in `xt/`, `benchmark/` and `author/` as 'develop' requires
 
 =item Used modules in other directories as 'runtime' requires
 
