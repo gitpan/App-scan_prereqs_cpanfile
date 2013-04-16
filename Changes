@@ -1,5 +1,10 @@
 Revision history for Perl extension App-scan_prereqs_cpanfile
 
+0.05 2013-04-16T12:30:30Z
+
+    - add 'ignore' option (append ignore dirs)
+      (Kan Fushihara)
+
 0.04 2013-04-04T05:48:20Z
 
     - Ignore fatlib/ and ignore fatpacked files.
