@@ -16,7 +16,7 @@ use File::Spec;
 use File::Basename ();
 use Module::Metadata;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 sub debugf {
     if ($ENV{SCAN_PREREQS_CPANFILE_DEBUG}) {
@@ -198,6 +198,7 @@ sub find_perl_files {
             no_chdir => 1,
             wanted   => sub {
                 return if $_ eq '.';
+                return if -S $_; # Ignore UNIX socket
 
                 # Ignore files.
                 my (undef, $topdir, ) = File::Spec->splitdir($_);
