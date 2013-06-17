@@ -27,7 +27,7 @@ no_index:
 provides:
   App::scan_prereqs_cpanfile:
     file: lib/App/scan_prereqs_cpanfile.pm
-    version: 0.07
+    version: 0.08
 requires:
   CPAN::Meta: 0
   CPAN::Meta::Requirements: 0
@@ -42,7 +42,7 @@ resources:
   bugtracker: https://github.com/tokuhirom/App-scan_prereqs_cpanfile/issues
   homepage: https://github.com/tokuhirom/App-scan_prereqs_cpanfile
   repository: git://github.com/tokuhirom/App-scan_prereqs_cpanfile.git
-version: 0.07
+version: 0.08
 x_contributors:
   - 'Syohei YOSHIDA <syohex@gmail.com>'
   - 'Kan Fushihara <kan.fushihara@gmail.com>'
