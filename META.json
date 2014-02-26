@@ -4,8 +4,10 @@
       "tokuhirom <tokuhirom@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.5.3",
-   "license" : "perl_5",
+   "generated_by" : "Minilla/v0.11.0",
+   "license" : [
+      "perl_5"
+   ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
@@ -19,7 +21,8 @@
          "share",
          "eg",
          "examples",
-         "author"
+         "author",
+         "builder"
       ]
    },
    "prereqs" : {
@@ -60,7 +63,7 @@
    "provides" : {
       "App::scan_prereqs_cpanfile" : {
          "file" : "lib/App/scan_prereqs_cpanfile.pm",
-         "version" : "0.08"
+         "version" : "0.09"
       }
    },
    "release_status" : "stable",
@@ -74,9 +77,10 @@
          "web" : "https://github.com/tokuhirom/App-scan_prereqs_cpanfile"
       }
    },
-   "version" : "0.08",
+   "version" : "0.09",
    "x_contributors" : [
       "Syohei YOSHIDA <syohex@gmail.com>",
-      "Kan Fushihara <kan.fushihara@gmail.com>"
+      "Kan Fushihara <kan.fushihara@gmail.com>",
+      "HIROSE Masaaki <hirose31@gmail.com>"
    ]
 }
