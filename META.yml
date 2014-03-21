@@ -3,17 +3,17 @@ abstract: 'Scan prerequisite modules and generate CPANfile'
 author:
   - 'tokuhirom <tokuhirom@gmail.com>'
 build_requires:
-  Test::More: 0.98
+  Test::More: '0.98'
 configure_requires:
-  CPAN::Meta: 0
-  CPAN::Meta::Prereqs: 0
-  Module::Build: 0.38
+  CPAN::Meta: '0'
+  CPAN::Meta::Prereqs: '0'
+  Module::Build: '0.38'
 dynamic_config: 0
-generated_by: 'Minilla/v0.11.0, CPAN::Meta::Converter version 2.133380'
+generated_by: 'Minilla/v0.12.0, CPAN::Meta::Converter version 2.133380'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: App-scan_prereqs_cpanfile
 no_index:
   directory:
@@ -28,23 +28,26 @@ no_index:
 provides:
   App::scan_prereqs_cpanfile:
     file: lib/App/scan_prereqs_cpanfile.pm
-    version: 0.09
+    version: '0.10'
+recommends:
+  Perl::PrereqScanner::Lite: '0.10'
 requires:
-  CPAN::Meta: 0
-  CPAN::Meta::Requirements: 0
-  Getopt::Long: 0
-  Module::CPANfile: 0.9020
-  Module::CoreList: 0
-  Module::Metadata: 0
-  Perl::PrereqScanner: 0
-  perl: 5.008005
-  version: 0
+  CPAN::Meta: '0'
+  CPAN::Meta::Requirements: '0'
+  Getopt::Long: '0'
+  Module::CPANfile: '0.9020'
+  Module::CoreList: '0'
+  Module::Metadata: '0'
+  Perl::PrereqScanner: '0'
+  perl: '5.008005'
+  version: '0'
 resources:
   bugtracker: https://github.com/tokuhirom/App-scan_prereqs_cpanfile/issues
   homepage: https://github.com/tokuhirom/App-scan_prereqs_cpanfile
   repository: git://github.com/tokuhirom/App-scan_prereqs_cpanfile.git
-version: 0.09
+version: '0.10'
 x_contributors:
   - 'Syohei YOSHIDA <syohex@gmail.com>'
   - 'Kan Fushihara <kan.fushihara@gmail.com>'
   - 'HIROSE Masaaki <hirose31@gmail.com>'
+  - 'moznion <moznion@gmail.com>'
