@@ -7,7 +7,7 @@ build_requires:
 configure_requires:
   Module::Build::Tiny: '0.035'
 dynamic_config: 0
-generated_by: 'Minilla/v0.15.1, CPAN::Meta::Converter version 2.140640'
+generated_by: 'Minilla/v2.1.0, CPAN::Meta::Converter version 2.141520'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -26,7 +26,9 @@ no_index:
 provides:
   App::scan_prereqs_cpanfile:
     file: lib/App/scan_prereqs_cpanfile.pm
-    version: '1.01'
+    version: '1.02'
+recommends:
+  Test::Requires::Scanner: '0'
 requires:
   CPAN::Meta: '0'
   CPAN::Meta::Requirements: '0'
@@ -41,9 +43,10 @@ resources:
   bugtracker: https://github.com/tokuhirom/App-scan_prereqs_cpanfile/issues
   homepage: https://github.com/tokuhirom/App-scan_prereqs_cpanfile
   repository: git://github.com/tokuhirom/App-scan_prereqs_cpanfile.git
-version: '1.01'
+version: '1.02'
 x_contributors:
   - 'Syohei YOSHIDA <syohex@gmail.com>'
   - 'Kan Fushihara <kan.fushihara@gmail.com>'
   - 'HIROSE Masaaki <hirose31@gmail.com>'
   - 'moznion <moznion@gmail.com>'
+  - 'Songmu <y.songmu@gmail.com>'
